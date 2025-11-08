@@ -1,0 +1,19 @@
+---
+- name: 🧪 Test de connectivité du fabric
+  hosts: all
+  gather_facts: false
+  tasks:
+
+    - name: Ping vers les loopbacks des spines
+      command: ping -c 3 10.0.0.1
+      delegate_to: "{{ item }}"
+      loop: "{{ groups['leafs'] + groups['borderleafs'] }}"
+      when: inventory_hostname in groups['spines']
+
+    - name: Vérifier les sessions BGP
+      command: vtysh -c "show bgp summary"
+      register: bgp_summary
+
+    - name: Afficher sessions BGP
+      debug:
+        var: bgp_summary.stdout

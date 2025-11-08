@@ -1,0 +1,104 @@
+#Fichier templates/interfaces/leaf.j2
+
+# Fichier interfaces généré automatiquement pour {{ hostname }}
+
+source /etc/network/interfaces.d/*.intf
+
+# Loopback
+auto lo
+iface lo inet loopback
+
+# Management
+auto eth0
+iface eth0 inet dhcp
+    vrf mgmt
+
+auto mgmt
+iface mgmt
+    address {{ mgmt_vrf_ip }}
+    address {{ mgmt_vrf_ipv6 }}
+    vrf-table auto
+
+# Loopback BGP + VXLAN
+auto lo
+iface lo
+    address {{ loopback_ip }}
+    clagd-vxlan-anycast-ip {{ anycast_ip }}
+    vxlan-local-tunnelip {{ vxlan_local_tunnelip }}
+
+##### UNDERLAY #####
+{% for intf in spine_interfaces %}
+auto {{ intf.name }}
+iface {{ intf.name }}
+    alias {{ intf.description }}
+{% endfor %}
+
+##### MLAG #####
+# Peerlink bond
+auto bond0
+iface bond0
+    bond-slaves {% for intf in peerlink_interfaces %}{{ intf.name }} {% endfor %}
+    bond-mode {{ bond_mode }}
+    mtu {{ underlay_mtu }}
+    bond-miimon {{ bond_miimon }}
+    bond-min-links {{ bond_min_links }}
+
+# VLAN peerlink (4094)
+auto bond0.4094
+iface bond0.4094
+    clagd-args {{ clag_args }}
+    clagd-backup-ip {{ mlag_backup_ip }}
+    clagd-peer-ip {{ clag_peer_ip }}
+    clagd-priority {{ clag_priority }}
+    clagd-sys-mac {{ clag_sys_mac }}
+
+# Server bonds
+auto bond1
+iface bond1
+    bond-slaves {{ server_interfaces[0].name }}
+    bond-mode {{ bond_mode }}
+    mtu {{ underlay_mtu }}
+    clag-id 2
+    mstpctl-bpduguard yes
+    mstpctl-portadminedge yes
+    bond-miimon {{ bond_miimon }}
+    bond-min-links {{ bond_min_links }}
+
+##### VXLAN - L2VNI #####
+{% for vlan_id, vlan_data in vlans.items() %}
+auto vxlan{{ vlan_data.vni }}
+iface vxlan{{ vlan_data.vni }}
+    vxlan-id {{ vlan_data.vni }}
+    bridge-learning off
+    bridge-arp-nd-suppress on
+    vxlan-port {{ vxlan_port }}
+    bridge-access {{ vlan_id }}
+{% endfor %}
+
+##### BRIDGE VLAN-AWARE #####
+auto br0
+iface br0
+    bridge-ports {{ bridge_ports }}
+    bridge-vlan-aware yes
+    bridge-vids {{ bridge_vids }}
+    bridge-stp off
+    clag-id 1
+
+##### VRF EVPN #####
+auto {{ evpn_vrf.name }}
+iface {{ evpn_vrf.name }}
+    vrf-table auto
+
+##### SVIs #####
+{% for vlan_id, svi_data in svis.items() %}
+auto br0.{{ vlan_id }}
+iface br0.{{ vlan_id }}
+    address {{ svi_data.ip }}
+    vrf {{ svi_data.vrf }}
+{% endfor %}
+
+##### VXLAN - L3VNI #####
+auto vxlan{{ evpn_vrf.l3vni }}
+iface vxlan{{ evpn_vrf.l3vni }}
+    vxlan-id {{ evpn_vrf.l3vni }}
+    vrf {{ evpn_vrf.name }}

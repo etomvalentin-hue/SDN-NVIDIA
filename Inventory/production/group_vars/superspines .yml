@@ -1,0 +1,14 @@
+#Fichier: inventory/group_vars/spines.yml
+
+---
+# Variables spécifiques aux Spines
+bgp_asn: 65000
+spine_interfaces:
+  - { name: "swp1", description: "vers LEAF10" }
+  - { name: "swp2", description: "vers LEAF11" } 
+  - { name: "swp3", description: "vers LEAF20" }
+  - { name: "swp4", description: "vers LEAF21" }
+  - { name: "swp5", description: "vers BLEAF10" }
+  - { name: "swp6", description: "vers BLEAF11" }
+
+peer_group_name: "UNDERLAY"

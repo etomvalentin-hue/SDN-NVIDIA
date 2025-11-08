@@ -1,0 +1,32 @@
+# Template: templates/frr/spine.j2
+! FRR configuration for Spine {{ hostname }}
+log syslog informational
+
+route-map UNDERLAY_LO permit 10
+  match interface lo
+
+router bgp {{ bgp_asn }}
+  bgp router-id {{ router_id }}
+  timers bgp {{ bgp_timers }}
+  no bgp default ipv4 unicast
+  bgp log-neighbor-changes
+
+  neighbor {{ peer_group_name }} peer-group
+  neighbor {{ peer_group_name }} advertisement-interval {{ bgp_advertisement_interval }}
+  neighbor {{ peer_group_name }} remote-as external
+  neighbor {{ peer_group_name }} capability extended-nexthop
+
+  {% for intf_name, intf_data in interfaces.items() %}
+  neighbor {{ intf_name }} interface peer-group {{ peer_group_name }}
+  {% endfor %}
+
+  bgp bestpath as-path multipath-relax
+
+  address-family ipv4 unicast
+    neighbor {{ peer_group_name }} activate
+    redistribute connected route-map UNDERLAY_LO
+  exit-address-family
+
+  address-family l2vpn evpn
+    neighbor {{ peer_group_name }} activate
+  exit-address-family

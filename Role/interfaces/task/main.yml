@@ -1,0 +1,19 @@
+# roles/interface/tasks/main.yml
+---
+- name: Configure physical interfaces
+  template:
+    src: physical_interfaces.j2
+    dest: "/etc/network/interfaces.d/{{ item.key }}"
+  with_dict: "{{ physical_interfaces }}"
+
+- name: Configure VLAN interfaces
+  template:
+    src: vlan_interfaces.j2
+    dest: "/etc/network/interfaces.d/vlan_{{ item.vlan }}"
+  loop: "{{ vlans }}"
+
+- name: Configure VRF interfaces
+  template:
+    src: vrf_interfaces.j2
+    dest: "/etc/network/interfaces.d/vrf_{{ item.name }}"
+  loop: "{{ vrfs }}"

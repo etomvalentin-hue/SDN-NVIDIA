@@ -1,0 +1,49 @@
+#Fichier: inventory/group_vars/all.yml
+
+---
+# Variables globales pour tous les équipements
+ansible_network_os: cumulus
+ansible_connection: network_cli
+ansible_user: cumulus
+ansible_ssh_pass: cumulus
+ansible_become_pass: cumulus
+
+# Paramètres BGP communs
+bgp_timers: "3 9"
+bgp_advertisement_interval: 0
+
+# Paramètres VXLAN
+vxlan_port: 4789
+underlay_mtu: 9216
+overlay_mtu: 9164
+
+# VLANs et VNIs standardisés
+vlans:
+  13:
+    vni: 10013
+    subnet: "172.16.1.0/24"
+    gateway: "172.16.1.1"
+  14:
+    vni: 10014  
+    subnet: "172.16.2.0/24"
+    gateway: "172.16.2.1"
+
+# VRF EVPN
+evpn_vrf:
+  name: "evpn-vrf"
+  l3vni: 4001
+
+# VRF Internet
+internet_vrf:
+  name: "internet-vrf"
+
+# Paramètres MLAG
+clag_args: "--initDelay 10"
+clag_peer_ip: "linklocal"
+bond_miimon: 100
+bond_min_links: 1
+bond_mode: "802.3ad"
+
+# Adresses de management
+mgmt_vrf_ip: "127.0.0.1/8"
+mgmt_vrf_ipv6: "::1/128"

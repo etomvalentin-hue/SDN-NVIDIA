@@ -1,0 +1,22 @@
+# roles/leaf/tasks/main.yml
+---
+- include_role: 
+    name: common
+- include_role:
+    name: interface
+  vars:
+    physical_interfaces: "{{ leaf_physical_interfaces }}"
+    vlans: "{{ leaf_vlans }}"
+    vrfs: "{{ leaf_vrfs }}"
+- include_role:
+    name: mlag
+  when: "'mlag_pair_' in group_names"
+- include_role:
+    name: bgp
+  vars:
+    bgp_config: "{{ leaf_bgp_config }}"
+- include_role:
+    name: evpn
+  vars:
+    evpn_vrfs: "{{ leaf_evpn_vrfs }}"
+    vxlan_instances: "{{ leaf_vxlan_instances }}"
