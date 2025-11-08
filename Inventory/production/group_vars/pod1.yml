@@ -1,0 +1,14 @@
+---
+# Adressage spécifique au POD1
+pod_id: 1
+pod_asn_base: 65000
+pod_network: "10.1.0.0/16"
+
+# BGP ASN par équipement dans le POD
+spine_asn: "{{ pod_asn_base + 100 }}"
+leaf_asn_base: "{{ pod_asn_base + 200 }}"
+borderleaf_asn_base: "{{ pod_asn_base + 300 }}"
+
+# VXLAN VNI ranges par POD
+vxlan_l2vni_base: "{{ 10000 + (pod_id * 1000) }}"
+vxlan_l3vni: "{{ 4000 + pod_id }}"

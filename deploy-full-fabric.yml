@@ -1,0 +1,21 @@
+---
+- name: 🌐 Deploy complete multi-pod fabric
+  hosts: localhost
+  vars:
+    pods_to_deploy: [1, 2, 3]
+  tasks:
+    - name: Deploy each POD
+      include_tasks: deploy-pod.yml
+      vars:
+        pod_id: "{{ item }}"
+      loop: "{{ pods_to_deploy }}"
+
+    - name: Deploy super-spine layer
+      hosts: superspines
+      roles:
+        - superspine
+
+    - name: Configure inter-pod routing
+      hosts: "pod{{ item }}_borderleafs"
+      include_tasks: configure-inter-pod.yml
+      loop: "{{ pods_to_deploy }}"

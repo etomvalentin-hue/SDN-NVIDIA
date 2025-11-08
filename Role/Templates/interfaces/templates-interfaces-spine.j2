@@ -1,0 +1,31 @@
+# Template: templates/interfaces/spine.j2
+# Fichier interfaces généré automatiquement pour {{ hostname }}
+
+source /etc/network/interfaces.d/*.intf
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto eth0
+iface eth0 inet dhcp
+    vrf mgmt
+
+auto mgmt
+iface mgmt
+    address {{ mgmt_vrf_ip }}
+    address {{ mgmt_vrf_ipv6 }}
+    vrf-table auto
+
+# Loopback BGP
+auto lo
+iface lo
+    address {{ loopback_ip }}
+
+# Interfaces vers les Leafs
+{% for intf_name, intf_data in interfaces.items() %}
+auto {{ intf_name }}
+iface {{ intf_name }}
+    alias {{ intf_data.description }}
+{% endfor %}

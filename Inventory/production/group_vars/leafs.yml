@@ -1,0 +1,28 @@
+group_vars/leafs.yml
+
+---
+# Variables communes aux Leafs
+mlag_peer_subnet: "169.254.1.0/31"
+clag_sys_mac_base: "44:38:39:BE:EF:"
+
+leaf_asn_base: 65300  
+
+# Interfaces standard pour les Leafs
+spine_interfaces:
+  - { name: "swp1", description: "vers SP10" }
+  - { name: "swp2", description: "vers SP11" }
+
+peerlink_interfaces:
+  - { name: "swp3", description: "peerlink" }
+  - { name: "name: "swp4", description: "peerlink" }
+
+server_interfaces:
+  - { name: "swp5", description: "vers server1" }
+  - { name: "swp6", description: "vers server2" }
+
+# Configuration bridge commune
+bridge_ports: "bond1 vxlan10013 vxlan10014"
+bridge_vids: "13-14"
+
+# Peer group BGP
+peer_group_name: "underlay"
