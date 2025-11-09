@@ -10,7 +10,6 @@
   when: false
   
 - name: Configure Spine Interface
-  become: yes
   become_method: sudo
   template:
     src: templates-interfaces-spine.j2

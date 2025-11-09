@@ -3,6 +3,7 @@
   hosts: POD1
   gather_facts: false
   become: yes
+  become_method: sudo
   connection: network_cli
   strategy: linear
   
