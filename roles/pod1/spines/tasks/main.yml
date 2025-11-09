@@ -7,7 +7,7 @@
     owner: root
     group: root
     mode: '0755'
-  #when: ansible_network_os == 'cumulus'
+  when: not ansible_facts['file_exists']
   
 - name: Configure Spine Interface
   template:
