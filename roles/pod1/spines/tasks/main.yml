@@ -7,7 +7,7 @@
     owner: root
     group: root
     mode: '0755'
-  when: not ansible_facts['file_exists']
+  when: false
   
 - name: Configure Spine Interface
   template:
