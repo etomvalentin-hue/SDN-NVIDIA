@@ -30,7 +30,7 @@
 
 - name: Configure Spine Switches
   hosts: SPINE
-  gather_facts: true
+  gather_facts: false
   roles:
     - role: pod1/spines
 
