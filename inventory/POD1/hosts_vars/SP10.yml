@@ -17,7 +17,7 @@ loopback_ip: "10.{{ pod_id }}.{{ rack_id }}.{{ position }}/32"
 interfaces:
   swp1:
     peer: "LF12-P1" 
-    speed: "25G", 
+    speed: "25G" 
     description: "To LF12-P1" 
     
   swp2:
