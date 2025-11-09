@@ -24,6 +24,11 @@
         files_matching: "{{ inventory_hostname }}.yml"
       delegate_to: localhost
 
+- name: Verify connectivity
+  wait_for_connection:
+    timeout: 30
+
+
 
 
 - name: Configure Spine Switches
