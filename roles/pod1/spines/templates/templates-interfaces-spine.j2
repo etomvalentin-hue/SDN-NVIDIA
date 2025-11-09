@@ -14,8 +14,7 @@ iface eth0 inet dhcp
 
 auto mgmt
 iface mgmt
-    address {{ mgmt_vrf_ip }}
-    address {{ mgmt_vrf_ipv6 }}
+    address {{ ansible_host }}
     vrf-table auto
 
 # Loopback BGP
