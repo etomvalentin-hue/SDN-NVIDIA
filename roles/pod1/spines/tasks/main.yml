@@ -4,8 +4,8 @@
   file:
     path: /etc/frr
     state: directory
-    owner: frr
-    group: frr
+    owner: root
+    group: root
     mode: '0755'
   #when: ansible_network_os == 'cumulus'
   
