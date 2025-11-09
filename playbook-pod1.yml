@@ -12,9 +12,12 @@
     - inventory/group_vars/pod1.yml
     - inventory/group_vars/vault.yml
  
-  vars:
-    remote_user: "{{ vault_ansible_user }}"
-    ansible_become_pass: "{{ vault_ansible_password }}"
+  tasks:
+    - name: Set connection variables
+      set_fact:
+        ansible_user: "{{ vault_ansible_user }}"
+        ansible_ssh_pass: "{{ vault_ansible_password }}"
+        ansible_become_pass: "{{ vault_ansible_password }}"
 
   tasks:
     - name: Include device-specific variables
