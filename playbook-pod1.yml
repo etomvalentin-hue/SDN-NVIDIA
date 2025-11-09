@@ -13,7 +13,7 @@
     - inventory/group_vars/vault.yml
  
   vars:
-    remote_user:: "{{ vault_ansible_user }}"
+    remote_user: "{{ vault_ansible_user }}"
     ansible_become_pass: "{{ vault_ansible_password }}"
 
   tasks:
