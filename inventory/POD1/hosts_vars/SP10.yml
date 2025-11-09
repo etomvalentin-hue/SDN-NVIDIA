@@ -15,12 +15,33 @@ loopback_ip: "10.{{ pod_id }}.{{ rack_id }}.{{ position }}/32"
 
 # Interfaces dynamiques
 interfaces:
-  leaf_links:
-    - { name: "swp1", peer: "LF12-P1", speed: "25G", description: "To LF12-P1" }
-    - { name: "swp2", peer: "SP22-P1", speed: "25G", description: "To SP22-P1" }
-    - { name: "swp3", peer: "SP13-P1", speed: "25G", description: "To SP13-P1" }
-    - { name: "swp4", peer: "SP23-P1", speed: "25G", description: "To SP23-P1" }
-  borderleaf_links:
-    - { name: "swp5", peer: "BL14-P1", speed: "25G", description: "To BL14-P1" }
-    - { name: "swp6", peer: "BL24-P1", speed: "25G", description: "To BL24-P1" }
+  swp1:
+    peer: "LF12-P1" 
+    speed: "25G", 
+    description: "To LF12-P1" 
+    
+  swp2:
+    peer: "SP22-P1"
+    speed: "25G" 
+    description: "To SP22-P1" 
+    
+  swp3: 
+    peer: "SP13-P1" 
+    speed: "25G" 
+    description: "To SP13-P1" 
+    
+  swp4: 
+    peer: "SP23-P1" 
+    speed: "25G" 
+    description: "To SP23-P1"
+    
+  swp5: 
+    peer: "BL14-P1" 
+    speed: "25G" 
+    description: "To BL14-P1"
+   
+  swp6:
+    peer: "BL24-P1" 
+    speed: "25G" 
+    description: "To BL24-P1"
 
