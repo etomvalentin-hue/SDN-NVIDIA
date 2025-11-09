@@ -1,0 +1,10 @@
+---
+#- name: Ensure Cumulus Linux is up to date
+#  apt:
+#    update_cache: yes
+#    upgrade: dist
+#  when: false
+
+- name: Configure hostname
+  hostname:
+    name: "{{ inventory_hostname }}"

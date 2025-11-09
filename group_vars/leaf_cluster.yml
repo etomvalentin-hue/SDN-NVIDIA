@@ -1,0 +1,14 @@
+---
+bgp_as: 65003
+bgp_as_spines: 65003
+vrf_prod:
+  name: PROD
+  l3vni: 1001
+vrf_preprod:
+  name: PREPROD
+  l3vni: 1002
+vlans:
+  - id: 10
+    l2vni: 5001
+  - id: 20
+    l2vni: 5002

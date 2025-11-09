@@ -1,0 +1,4 @@
+# ANSIBLE MANAGED FILE - DO NOT EDIT MANUALLY
+{% for server in radius_servers %}
+{{ server.host }} {{ server.port }} {{ server.secret }} {{ radius_timeout }} {{ radius_retries }}
+{% endfor %}

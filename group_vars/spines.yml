@@ -1,0 +1,4 @@
+---
+bgp_as: "{{ bgp_as_spines }}"
+
+	

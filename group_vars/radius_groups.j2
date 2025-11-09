@@ -1,0 +1,4 @@
+# ANSIBLE MANAGED FILE - DO NOT EDIT MANUALLY
+{% for group in radius_groups %}
+{{ group.name }} {{ group.privilege }}
+{% endfor %}
