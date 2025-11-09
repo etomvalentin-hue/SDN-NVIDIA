@@ -2,6 +2,7 @@
 - name: Deploy POD1 EVPN VXLAN Fabric
   hosts: POD1
   gather_facts: false
+  become: yes
   connection: network_cli
   strategy: linear
   
