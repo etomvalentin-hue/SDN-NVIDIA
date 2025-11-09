@@ -2,11 +2,14 @@
   - **NVIDIA Documentation** : https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-44/Network-Virtualization/
   - **Fabricplane EVPN Introduction**  :  https://www.fabricplane.com/evpn/
   - **Ansible collection** https://galaxy.ansible.com/ui/repo/published/nvidia/nvue/docs/
+    
 
 ************** Topology Clos Leaf and Spine -BGP Unnumbered **************
+
 	- **2 Spines (SP)** : 
 		  SP10 : L0 10.0.0.1/32 - bgp 65000 /   Interface SWp1(LEAF10): /  Interface SWp2(LEAF11):   /  Interface SWp3(LEAF20):  /   InterfaceSWp4(LEAF21):     /  Interface SWp5(BLEAF10):  /   Interface SWp6(BLEAF11): 
-		  SP11 : L0 10.0.0.2/32 - bgp 65000 /   InterfaceSWp1(LEAF10):  / Interface  SWp2(LEAF11):   /  Interface SWp3(LEAF20):  /   Interface  SWp4(LEAF21):   /  Interface SWp5(BLEAF10):  /   Interface SWp6(BLEAF11):	 
+		  SP11 : L0 10.0.0.2/32 - bgp 65000 /   InterfaceSWp1(LEAF10):  / Interface  SWp2(LEAF11):   /  Interface SWp3(LEAF20):  /   Interface  SWp4(LEAF21):   /  Interface SWp5(BLEAF10):  /   Interface SWp6(BLEAF11):
+		
 
 	- **2 Border Leaf (BLEAF)** : 
 		  BLEAF10 : L0 10.0.0.101/32 - bgp 65201 /   Interface SWp1(SP10): / Interface SWp2(SP11):    /   Interface SWp3(Rter):169.254.127.1/31   /   Interface SWp4(FW):169.254.254.1/31  
