@@ -12,9 +12,9 @@
     - inventory/group_vars/pod1.yml
     - inventory/group_vars/vault.yml
  
- vars:
-   ansible_user: "{{ vault_ansible_user }}"
-   ansible_become_pass: "{{ vault_ansible_password }}"
+  vars:
+    ansible_user: "{{ vault_ansible_user }}"
+    ansible_become_pass: "{{ vault_ansible_password }}"
 
   tasks:
     - name: Include device-specific variables
