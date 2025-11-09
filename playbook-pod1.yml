@@ -13,9 +13,8 @@
     - inventory/group_vars/vault.yml
  
   vars:
-    ansible_user: "{{ vault_ansible_user }}"
-    ansible_ssh_pass: "{{ vault_ansible_password }}"
-    ansible_become_pass: "{{ vault_ansible_password }}"
+    ansible_user: "{{ vault.vault_ansible_user }}"
+    ansible_become_pass: "{{ vault.vault_ansible_password }}"
 
   tasks:
     - name: Include device-specific variables
