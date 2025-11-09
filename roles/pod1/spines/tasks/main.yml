@@ -25,4 +25,4 @@
     name: frr
     state: started
     enabled: yes
-  when: ansible_network_os == 'cumulus'
+  #when: ansible_network_os == 'cumulus'
