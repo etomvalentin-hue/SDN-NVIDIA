@@ -1,0 +1,25 @@
+---
+hostname: SP20
+ansible_host: 192.168.116.130
+device_role: spine
+pod_id: 1
+rack_id: 2
+position: 1
+
+# ASN calculé automatiquement
+bgp_asn: "{{ spine_asn_base + rack_id + position }}"
+
+# Adressage calculé
+loopback_ip: "10.{{ pod_id }}.{{ rack_id }}.{{ position }}/32"
+
+# Interfaces dynamiques
+interfaces:
+  leaf_links:
+    - { name: "swp1", peer: "LF12-P1", speed: "25G" }
+    - { name: "swp2", peer: "SP22-P1", speed: "25G" }
+    - { name: "swp3", peer: "SP13-P1", speed: "25G" }
+    - { name: "swp4", peer: "SP23-P1", speed: "25G" }
+  borderleaf_links:
+    - { name: "swp5", peer: "BL14-P1", speed: "25G" }
+    - { name: "swp6", peer: "BL24-P1", speed: "25G" }
+

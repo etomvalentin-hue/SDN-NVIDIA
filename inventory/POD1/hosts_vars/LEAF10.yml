@@ -1,0 +1,23 @@
+---
+hostname: LEAF10
+ansible_host: 192.168.116.133
+device_role: leaf
+pod_id: 1
+rack_id: 1
+position: 2
+
+
+# ASN calculé automatiquement
+bgp_asn: "{{ leaf_asn_base + (rack_id * 10) + position }}"
+
+# Adressage calculé
+loopback_ip: "10.{{ pod_id }}.{{ rack_id }}.{{ position }}/32"
+anycast_ip: "10.{{ pod_id }}.255.{{ rack_id }}/32"
+
+# Interfaces dynamiques
+interfaces:
+  spine_links:
+    - { name: "swp1", peer: "SP1-P1", speed: "25G" }
+    - { name: "swp2", peer: "SP2-P1", speed: "25G" }
+  server_links:
+    - { name: "swp3-10", type: "server", vlans: [13, 14] }

@@ -1,0 +1,33 @@
+---
+# Variables globales pour tous les équipements
+ansible_network_os: cumulus
+ansible_connection: network_cli
+ansible_host_key_checking: false
+ansible_ssh_common_args: "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+#ansible_connection: ansible.netcommon.httpapi
+#ansible_httpapi_use_ssl: yes
+#ansible_httpapi_validate_certs: no
+
+# vault_ansible_user et vault_ansible_password définis dans vault.yml
+ansible_user: "{{ vault_ansible_user }}"                        
+ansible_password: "{{ vault_ansible_password }}"
+
+
+# Timeouts Ansible
+ansible_command_timeout: 60
+ansible_connection_timeout: 30
+
+# Service réseau
+dns_servers:
+  - "192.168.1.254"
+  - "8.8.8.8"
+
+
+# Configuration système commune
+system:
+  timezone: "Europe/Paris"
+  ntp_servers:
+    - "192.168.1.254"
+  domain_name: "entreprise.local"
+
+

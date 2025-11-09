@@ -1,8 +1,0 @@
-- name: Configure BGP on spines
-  nvidia.nvue.router:
-    commands:
-      - "router bgp {{ bgp_as }}"
-      - "router bgp {{ bgp_as }} router-id {{ ansible_default_ipv4.address }}"
-      - "router bgp {{ bgp_as }} neighbor {{ hostvars[item]['ansible_default_ipv4']['address'] }} remote-as {{ hostvars[item]['bgp_as'] }}"
-    state: merged
-  loop: "{{ groups['leafs'] + groups['leaf_cluster'] }}"

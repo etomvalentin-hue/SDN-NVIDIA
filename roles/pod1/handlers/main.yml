@@ -1,0 +1,12 @@
+---
+- name: restart networking
+  service:
+    name: networking
+    state: restarted
+  when: ansible_network_os == 'cumulus'
+
+- name: restart frr
+  service:
+    name: frr
+    state: restarted
+  when: ansible_network_os == 'cumulus'

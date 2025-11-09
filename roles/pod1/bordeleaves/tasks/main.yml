@@ -1,0 +1,40 @@
+# roles/pod1/borderleaves/tasks/main.yml
+---
+- name: Configure Border Leaf interfaces
+  template:
+    src: templates-interfaces-borderleaf.j2
+    dest: /etc/network/interfaces
+    backup: yes
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart networking
+
+- name: Configure Border Leaf FRR
+  template:
+    src: templates-frr-borderleaf.j2
+    dest: /etc/frr/frr.conf
+    backup: yes
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart frr
+
+- name: Configure VRF and routing
+  template:
+    src: templates-vrf-borderleaf.j2
+    dest: "/etc/network/interfaces.d/vrf.intf"
+    backup: yes
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart networking
+
+- name: Ensure FRR service is enabled and started
+  systemd:
+    name: frr
+    state: started
+    enabled: yes
+  when: ansible_network_os == 'cumulus'
+
+

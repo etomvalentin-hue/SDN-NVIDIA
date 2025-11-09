@@ -1,0 +1,41 @@
+# roles/pod1/leaves/tasks/main.yml
+---
+- name: Configure Spine Interface
+  template:
+    src: templates-interfaces-eaf.j2
+    dest: /etc/frr/interfaces
+    backup: yes
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart networking
+
+
+- name: Configure Leaf FRR
+  template:
+    src: templates-frr-leaf.j2
+    dest: /etc/frr/frr.conf
+    backup: yes
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart frr
+
+
+- name: Configure VXLAN and bridges
+  template:
+    src: templates-vxlan-leaf.j2
+    dest: "/etc/network/interfaces.d/vxlan.intf"
+    backup: yes
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart networking
+
+
+- name: Ensure FRR service is enabled and started
+  systemd:
+    name: frr
+    state: started
+    enabled: yes
+  when: ansible_network_os == 'cumulus'

@@ -1,0 +1,28 @@
+# roles/pod1/spine/tasks/main.yml
+---
+- name: Configure Spine Interface
+  template:
+    src: templates-interfaces-spine.j2
+    dest: /etc/frr/interfaces
+    backup: yes
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart networking
+
+- name: Configure spine FRR
+  template:
+    src: templates-frr-spine.j2
+    dest: /etc/frr/frr.conf
+    backup: yes
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart frr
+
+- name: Ensure FRR service is enabled and started
+  systemd:
+    name: frr
+    state: started
+    enabled: yes
+  when: ansible_network_os == 'cumulus'

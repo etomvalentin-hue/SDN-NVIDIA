@@ -1,0 +1,4 @@
+---
+# Variables sécurisées pour tous les équipements
+vault_ansible_user: "cumulus"
+vault_ansible_password: "cumulus1"

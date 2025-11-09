@@ -1,0 +1,43 @@
+---
+- name: Deploy POD1 EVPN VXLAN Fabric
+  hosts: POD1
+  gather_facts: false
+  connection: network_cli
+  strategy: linear
+  
+  vars_files:
+    - inventory/group_vars/all.yml
+    - inventory/group_vars/pod1.yml
+    - inventory/group_vars/vault.yml
+
+  tasks:
+    - name: Include device-specific variables
+      include_vars:
+        dir: "inventory/host_vars/"
+        files_matching: "{{ inventory_hostname }}.yml"
+      delegate_to: localhost
+
+    - name: Verify connectivity
+      wait_for_connection:
+        timeout: 30
+
+- name: Configure Spine Switches
+  hosts: SPINE
+  gather_facts: false
+  connection: network_cli
+  roles:
+    - role: pod1/spines
+
+- name: Configure Leaf Switches  
+  hosts: LEAF
+  gather_facts: false
+  connection: network_cli
+  roles:
+    - role: pod1/leaves
+
+- name: Configure Border Leaf Switches
+  hosts: BORDER_LEAF
+  gather_facts: false
+  connection: network_cli
+  roles:
+    - role: pod1/borderleaves

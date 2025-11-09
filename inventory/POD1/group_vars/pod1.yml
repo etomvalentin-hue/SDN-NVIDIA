@@ -1,0 +1,42 @@
+---
+# Adressage spécifique au POD1
+pod_id: 1
+pod_asn_base: 65000
+pod_network: "10.1.0.0/16"
+
+# BGP ASN par équipement dans le POD
+spine_asn: "{{ pod_asn_base + 100 }}"
+leaf_asn_base: "{{ pod_asn_base + 200 }}"
+borderleaf_asn_base: "{{ pod_asn_base + 300 }}"
+
+# VXLAN VNI ranges par POD
+#: "{{ 10000 + (pod_id * 1000) }}"
+#vxlan_l3vni: "{{ 4000 + pod_id }}"
+
+
+
+# Paramètres BGP communs
+bgp_timers: "3 9"
+bgp_advertisement_interval: 0
+
+
+# Paramètres VXLAN
+vxlan_port: 4789
+underlay_mtu: 9216
+overlay_mtu: 9164
+
+# VLANs et VNIs standardisés
+vlans:
+  13:
+    vni: 10013
+    subnet: "172.16.1.0/24"
+    gateway: "172.16.1.1"
+  14:
+    vni: 10014  
+    subnet: "172.16.2.0/24"
+    gateway: "172.16.2.1"
+
+# VRF EVPN
+evpn_vrf:
+  name: "evpn-vrf"
+  l3vni: 4001
