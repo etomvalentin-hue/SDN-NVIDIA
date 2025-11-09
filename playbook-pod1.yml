@@ -25,7 +25,6 @@
   hosts: SPINE
   gather_facts: false
   connection: network_cli
-  ansible_connection: local
   roles:
     - role: pod1/spines
 
