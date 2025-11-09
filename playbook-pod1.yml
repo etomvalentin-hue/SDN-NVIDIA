@@ -4,7 +4,7 @@
   become: yes
   become_method: sudo
   #ansible_connection: network_cli
-  connection: network_cli
+  connection: ssh
   strategy: linear
   
   vars_files:
@@ -24,9 +24,7 @@
         files_matching: "{{ inventory_hostname }}.yml"
       delegate_to: localhost
 
-    #- name: Verify connectivity
-    #  wait_for_connection:
-    #    timeout: 30
+
 
 - name: Configure Spine Switches
   hosts: SPINE
