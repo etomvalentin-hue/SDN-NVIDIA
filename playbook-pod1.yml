@@ -1,10 +1,10 @@
 ---
 - name: Deploy POD1 EVPN VXLAN Fabric
   hosts: POD1
-  gather_facts: false
   become: yes
   become_method: sudo
-  connection: ssh
+  ansible_connection: network_cli
+  #connection: ssh
   strategy: linear
   
   vars_files:
@@ -32,7 +32,7 @@
 
 - name: Configure Spine Switches
   hosts: SPINE
-  gather_facts: false
+  gather_facts: yes
   #connection: ssh
   roles:
     - role: pod1/spines

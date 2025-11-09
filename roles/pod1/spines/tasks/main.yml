@@ -10,7 +10,6 @@
   when: false
   
 - name: Configure Spine Interface
-  become_method: sudo
   template:
     src: templates-interfaces-spine.j2
     dest: /etc/network/interfaces
