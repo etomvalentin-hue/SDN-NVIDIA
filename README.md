@@ -73,7 +73,8 @@ NB : la MAC sys , format reconnaissable 44:38:39:00:00:XY
   
 **************activer daemons bgp **************
 
-sudo nano /etc/frr/daemons 
+sudo nano /etc/frr/daemons
+
 bgpd=yes
 zebra_options="  -M cumulus_mlag -M snmp -A 127.0.0.1 -s 90000000"
 bgpd_options="   -M snmp -A 127.0.0.1"
