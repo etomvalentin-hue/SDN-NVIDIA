@@ -4,9 +4,9 @@
   file:
     path: /etc/frr
     state: directory
-    owner: root
-    group: root
-    mode: '0644'
+    owner: frr
+    group: frr
+    mode: '0755'
   #when: ansible_network_os == 'cumulus'
   
 - name: Configure Spine Interface
