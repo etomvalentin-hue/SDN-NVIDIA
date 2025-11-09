@@ -4,7 +4,7 @@
   gather_facts: false
   become: yes
   become_method: sudo
-  connection: network_cli
+  connection: ssh
   strategy: linear
   
   vars_files:
