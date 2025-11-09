@@ -12,7 +12,7 @@
 - name: Configure Spine Interface
   template:
     src: templates-interfaces-spine.j2
-    dest: /etc/frr/interfaces
+    dest: /etc/network/interfaces
     backup: yes
     owner: root
     group: root
