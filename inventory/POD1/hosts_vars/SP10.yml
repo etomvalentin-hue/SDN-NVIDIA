@@ -1,7 +1,7 @@
 ---
+ansible_network_os: cumulus
 hostname: SP10
 ansible_host: 192.168.116.136
-ansible_network_os: cumulus
 device_role: spine
 pod_id: 1
 rack_id: 1
