@@ -5,6 +5,7 @@
   
   vars:
     ansible_user: cumulus
+    ansible_password: cumulus1
 
   tasks:
     - name: Afficher la version Python utilisée
