@@ -1,0 +1,8 @@
+---
+- hosts: cumulus
+  gather_facts: yes
+
+  tasks:
+    - name: Afficher la version Python utilisée
+      debug:
+        var: ansible_python_version
