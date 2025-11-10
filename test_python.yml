@@ -2,6 +2,7 @@
 - hosts: all
   gather_facts: yes
   connection: ssh
+  ansible_user: cumulus
 
   tasks:
     - name: Afficher la version Python utilisée
