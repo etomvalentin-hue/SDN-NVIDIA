@@ -1,6 +1,7 @@
 ---
 - hosts: all
   gather_facts: yes
+  connection: ssh
 
   tasks:
     - name: Afficher la version Python utilisée
